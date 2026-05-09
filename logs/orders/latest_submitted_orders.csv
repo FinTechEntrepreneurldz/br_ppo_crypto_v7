@@ -1,0 +1,4 @@
+timestamp_utc,symbol,side,notional,target_value,current_value,delta_value,order_type,time_in_force,submitted,alpaca_order_id,status,submitted_at
+2026-05-09T14:32:46.910282+00:00,BIL,buy,100000.0,100000.0,0.0,100000.0,market,day,True,a1230cfa-4518-4b7d-bc84-25f4b74027db,accepted,2026-05-09T14:32:47.100387+00:00
+2026-05-09T14:32:46.910321+00:00,QQQ,buy,300000.0,300000.0,0.0,300000.0,market,day,True,ecaadc31-0430-4762-89c9-8754edba5fdf,accepted,2026-05-09T14:32:47.701228+00:00
+2026-05-09T14:32:46.910328+00:00,SPY,buy,600000.0,600000.0,0.0,600000.0,market,day,True,d1abd1b1-d311-4578-86d5-dc982a4aad56,accepted,2026-05-09T14:32:48.075614+00:00

@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-05-09T14:24:54.005025+00:00",
+  "timestamp_utc": "2026-05-09T14:32:48.277385+00:00",
   "model_id": "br_ppo_crypto_v7",
   "overall_status": "ok",
   "allocation_mode": "ppo",
@@ -8,11 +8,11 @@
   "allocation_state": "ppo_proxy_state_exact_shape",
   "fallback_used": false,
   "fallback_reason": "",
-  "orders_allowed": false,
-  "rebalance_reason": "rebalance_wait_elapsed_days_0_threshold_10",
+  "orders_allowed": true,
+  "rebalance_reason": "force_rebalance",
   "submit_orders": true,
   "cancel_open_orders": true,
-  "cancel_status": "not_requested",
+  "cancel_status": "ok",
   "cancelled_orders": 0,
   "account_status": "connected",
   "target_weights": {

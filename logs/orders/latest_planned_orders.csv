@@ -1,0 +1,4 @@
+timestamp_utc,symbol,side,notional,target_value,current_value,delta_value,order_type,time_in_force
+2026-05-09T14:32:46.910282+00:00,BIL,buy,100000.0,100000.0,0.0,100000.0,market,day
+2026-05-09T14:32:46.910321+00:00,QQQ,buy,300000.0,300000.0,0.0,300000.0,market,day
+2026-05-09T14:32:46.910328+00:00,SPY,buy,600000.0,600000.0,0.0,600000.0,market,day
