@@ -1,13 +1,13 @@
 {
-  "timestamp_utc": "2026-05-09T14:18:41.979125+00:00",
+  "timestamp_utc": "2026-05-09T14:24:54.005025+00:00",
   "model_id": "br_ppo_crypto_v7",
-  "overall_status": "fallback",
+  "overall_status": "ok",
   "allocation_mode": "ppo",
-  "action": "v7_symbolic_optuna_00__long_top",
-  "action_source": "default_action_fallback",
-  "allocation_state": "fixed_default",
-  "fallback_used": true,
-  "fallback_reason": "UnboundLocalError(\"cannot access local variable 'model' where it is not associated with a value\")",
+  "action": "v7_symbolic_optuna_06__long_top",
+  "action_source": "ppo_ensemble_model",
+  "allocation_state": "ppo_proxy_state_exact_shape",
+  "fallback_used": false,
+  "fallback_reason": "",
   "orders_allowed": false,
   "rebalance_reason": "rebalance_wait_elapsed_days_0_threshold_10",
   "submit_orders": true,
@@ -21,6 +21,6 @@
     "BIL": 0.10000000000000002
   },
   "action_weights": {
-    "V7_SYMBOLIC_OPTUNA_00__LONG_TOP": 1.0
+    "V7_SYMBOLIC_OPTUNA_06__LONG_TOP": 1.0
   }
 }
