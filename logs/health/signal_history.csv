@@ -1,0 +1,2 @@
+timestamp_utc,model_id,signal,allocation_mode,action_source,fallback_used,fallback_reason
+2026-05-09T14:07:44.665433+00:00,br_ppo_crypto_v7,v7_symbolic_optuna_00__long_top,ppo,default_action_fallback,true,"ValueError('Error: Unexpected observation shape (575,) for Box environment, please use (1011,) or (n_env, 1011) for the observation shape.')"

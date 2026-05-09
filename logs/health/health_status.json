@@ -1,0 +1,26 @@
+{
+  "timestamp_utc": "2026-05-09T14:07:44.665328+00:00",
+  "model_id": "br_ppo_crypto_v7",
+  "overall_status": "fallback",
+  "allocation_mode": "ppo",
+  "action": "v7_symbolic_optuna_00__long_top",
+  "action_source": "default_action_fallback",
+  "allocation_state": "fixed_default",
+  "fallback_used": true,
+  "fallback_reason": "ValueError('Error: Unexpected observation shape (575,) for Box environment, please use (1011,) or (n_env, 1011) for the observation shape.')",
+  "orders_allowed": true,
+  "rebalance_reason": "first_run",
+  "submit_orders": true,
+  "cancel_open_orders": true,
+  "cancel_status": "ok",
+  "cancelled_orders": 0,
+  "account_status": "connected",
+  "target_weights": {
+    "SPY": 0.6000000000000001,
+    "QQQ": 0.30000000000000004,
+    "BIL": 0.10000000000000002
+  },
+  "action_weights": {
+    "V7_SYMBOLIC_OPTUNA_00__LONG_TOP": 1.0
+  }
+}
