@@ -225,17 +225,17 @@ def choose_action_with_ppo_ensemble(metadata: Dict[str, Any]) -> Tuple[str, str,
 
 def choose_action(settings: Settings, metadata: Dict[str, Any]) -> Tuple[str, str, str, bool, str]:
     if settings.allocation_mode == "ppo":
-    try:
-        action_name, source, state, fallback = choose_action_with_ppo_ensemble(metadata)
-        return action_name, source, state, fallback, ""
-    except Exception as exc:
-        return (
-            settings.default_action,
-            "default_action_fallback",
-            "fixed_default",
-            True,
-            repr(exc),
-        )
+        try:
+            action_name, source, state, fallback = choose_action_with_ppo_ensemble(metadata)
+            return action_name, source, state, fallback, ""
+        except Exception as exc:
+            return (
+                settings.default_action,
+                "default_action_fallback",
+                "fixed_default",
+                True,
+                repr(exc),
+            )
     return settings.default_action, "default_action", "fixed_default", False, ""
 
 
