@@ -156,15 +156,39 @@ def flatten_action_to_tradeable_targets(action_weights: Dict[str, float]) -> Dic
     return normalize_weights(targets)
 
 
-def build_proxy_observation(metadata: Dict[str, Any]) -> np.ndarray:
-    # Uses exact action-space length from V7 metadata, with zero feature vector + winning action one-hot.
+def build_proxy_observation_for_model(model, metadata: dict) -> np.ndarray:
+    """
+    Build a zero/proxy observation with the exact shape expected by the trained PPO model.
+
+    This prevents shape mismatch errors like:
+    expected 1011, got 575.
+    """
+    expected_shape = model.observation_space.shape
+
+    if not expected_shape or len(expected_shape) != 1:
+        raise ValueError(f"Unsupported PPO observation space shape: {expected_shape}")
+
+    obs_dim = int(expected_shape[0])
+    obs = np.zeros(obs_dim, dtype=np.float32)
+
     action_names = metadata.get("action_names") or []
-    # V7 live research state is expensive to rebuild; this is a deterministic PPO-compatible proxy state.
-    n_features = 512
-    obs = np.zeros(n_features + len(action_names), dtype=np.float32)
-    default_action = metadata.get("best_fixed_action") or os.getenv("DEFAULT_ACTION", "bil_cash")
-    if default_action in action_names:
-        obs[n_features + action_names.index(default_action)] = 1.0
+
+    default_action_name = (
+        metadata.get("best_fixed_action")
+        or metadata.get("winning_variant", "").split("__fixed__")[-1]
+        or "bil_cash"
+    )
+
+    if default_action_name in action_names:
+        action_idx = action_names.index(default_action_name)
+
+        # The training observation was feature vector + action one-hot.
+        # Put the default action one-hot at the tail of the observation.
+        if action_idx < obs_dim:
+            onehot_start = max(0, obs_dim - len(action_names))
+            if onehot_start + action_idx < obs_dim:
+                obs[onehot_start + action_idx] = 1.0
+
     return obs
 
 
@@ -176,7 +200,7 @@ def choose_action_with_ppo_ensemble(metadata: Dict[str, Any]) -> Tuple[str, str,
     missing = [str(p) for p in MODEL_PATHS if not p.exists()]
     if missing:
         raise FileNotFoundError(f"missing PPO ensemble artifacts: {missing}")
-    obs = build_proxy_observation(metadata)
+    obs = build_proxy_observation_for_model(model, metadata)
     probs = []
     for path in MODEL_PATHS:
         model = PPO.load(str(path))
@@ -201,10 +225,17 @@ def choose_action_with_ppo_ensemble(metadata: Dict[str, Any]) -> Tuple[str, str,
 
 def choose_action(settings: Settings, metadata: Dict[str, Any]) -> Tuple[str, str, str, bool, str]:
     if settings.allocation_mode == "ppo":
-        try:
-            return choose_action_with_ppo_ensemble(metadata)
-        except Exception as exc:
-            return settings.default_action, "default_action_fallback", "fixed_default", True, repr(exc)
+    try:
+        action_name, source, state, fallback = choose_action_with_ppo_ensemble(metadata)
+        return action_name, source, state, fallback, ""
+    except Exception as exc:
+        return (
+            settings.default_action,
+            "default_action_fallback",
+            "fixed_default",
+            True,
+            repr(exc),
+        )
     return settings.default_action, "default_action", "fixed_default", False, ""
 
 
