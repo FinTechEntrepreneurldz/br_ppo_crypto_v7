@@ -194,40 +194,55 @@ def build_proxy_observation_for_model(model, metadata: dict) -> np.ndarray:
 
 def choose_action_with_ppo_ensemble(metadata: Dict[str, Any]) -> Tuple[str, str, str, bool, str]:
     from stable_baselines3 import PPO
+
     action_names = metadata.get("action_names") or []
     if not action_names:
         raise ValueError("metadata.action_names missing")
+
     missing = [str(p) for p in MODEL_PATHS if not p.exists()]
     if missing:
         raise FileNotFoundError(f"missing PPO ensemble artifacts: {missing}")
-    obs = build_proxy_observation_for_model(model, metadata)
+
     probs = []
+
     for path in MODEL_PATHS:
         model = PPO.load(str(path))
+
+        # Build the observation AFTER loading the model, because each PPO artifact
+        # tells us the exact expected observation shape.
+        obs = build_proxy_observation_for_model(model, metadata)
+
         try:
             import torch
+
             obs_t = torch.as_tensor(obs).float().unsqueeze(0).to(model.device)
             with torch.no_grad():
                 dist = model.policy.get_distribution(obs_t)
                 p = dist.distribution.probs.detach().cpu().numpy()[0]
+
             probs.append(p)
+
         except Exception:
             action_idx, _ = model.predict(obs, deterministic=True)
+
             p = np.zeros(len(action_names), dtype=float)
             p[int(action_idx)] = 1.0
             probs.append(p)
+
     avg = np.nanmean(np.vstack(probs), axis=0)
     idx = int(np.nanargmax(avg))
+
     if idx < 0 or idx >= len(action_names):
         raise ValueError(f"invalid action index from PPO ensemble: {idx}")
-    return action_names[idx], "ppo_ensemble_model", "ppo_proxy_state", False, ""
+
+    return action_names[idx], "ppo_ensemble_model", "ppo_proxy_state_exact_shape", False, ""
 
 
 def choose_action(settings: Settings, metadata: Dict[str, Any]) -> Tuple[str, str, str, bool, str]:
     if settings.allocation_mode == "ppo":
         try:
-            action_name, source, state, fallback = choose_action_with_ppo_ensemble(metadata)
-            return action_name, source, state, fallback, ""
+            action_name, source, state, fallback, fallback_reason = choose_action_with_ppo_ensemble(metadata)
+            return action_name, source, state, fallback, fallback_reason
         except Exception as exc:
             return (
                 settings.default_action,
@@ -236,6 +251,7 @@ def choose_action(settings: Settings, metadata: Dict[str, Any]) -> Tuple[str, st
                 True,
                 repr(exc),
             )
+
     return settings.default_action, "default_action", "fixed_default", False, ""
 
 
