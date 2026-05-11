@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-05-11T13:50:09.570024+00:00",
+  "timestamp_utc": "2026-05-11T20:05:03.365318+00:00",
   "model_id": "br_ppo_crypto_v7",
   "overall_status": "ok",
   "allocation_mode": "ppo",
@@ -9,7 +9,7 @@
   "fallback_used": false,
   "fallback_reason": "",
   "orders_allowed": false,
-  "rebalance_reason": "rebalance_wait_elapsed_days_1_threshold_10",
+  "rebalance_reason": "rebalance_wait_elapsed_days_2_threshold_10",
   "submit_orders": true,
   "cancel_open_orders": false,
   "cancel_status": "not_requested",

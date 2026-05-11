@@ -17,3 +17,6 @@ timestamp_utc,action,symbol,target_weight
 2026-05-11T13:50:09.569754+00:00,v7_symbolic_optuna_06__long_top,BIL,0.1
 2026-05-11T13:50:09.569761+00:00,v7_symbolic_optuna_06__long_top,QQQ,0.3
 2026-05-11T13:50:09.569764+00:00,v7_symbolic_optuna_06__long_top,SPY,0.6
+2026-05-11T20:05:03.364953+00:00,v7_symbolic_optuna_06__long_top,BIL,0.1
+2026-05-11T20:05:03.364962+00:00,v7_symbolic_optuna_06__long_top,QQQ,0.3
+2026-05-11T20:05:03.364965+00:00,v7_symbolic_optuna_06__long_top,SPY,0.6
