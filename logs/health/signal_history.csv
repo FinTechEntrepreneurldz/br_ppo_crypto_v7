@@ -7,3 +7,4 @@ timestamp_utc,model_id,signal,allocation_mode,action_source,fallback_used,fallba
 2026-05-11T13:50:09.570181+00:00,br_ppo_crypto_v7,v7_symbolic_optuna_06__long_top,ppo,ppo_ensemble_model,false,
 2026-05-11T20:05:03.365464+00:00,br_ppo_crypto_v7,v7_symbolic_optuna_06__long_top,ppo,ppo_ensemble_model,false,
 2026-05-12T00:05:07.331581+00:00,br_ppo_crypto_v7,v7_symbolic_optuna_06__long_top,ppo,ppo_ensemble_model,false,
+2026-05-12T11:12:32.600972+00:00,br_ppo_crypto_v7,v7_symbolic_optuna_06__long_top,ppo,ppo_ensemble_model,false,
